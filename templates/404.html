@@ -1,0 +1,14 @@
+<html>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/404.css') }}">
+<h1>404</h1>
+<div class="cloak__wrapper">
+    <div class="cloak__container">
+        <div class="cloak"></div>
+    </div>
+</div>
+<div class="info">
+    <h2>We kunnen de pagina niet vinden</h2>
+    <p>We zijn er zeker van dat de pagina hier zou moeten zijn maar kunnen hem niet vinden.</p>
+    <a href="{{ url_for("start")}}" rel="noreferrer noopener">Home</a>
+</div>
+</html>

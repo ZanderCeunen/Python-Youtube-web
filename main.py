@@ -2,16 +2,28 @@ from flask import *
 import pytube
 app = Flask(__name__)
 url = ""
-#yt = pytube.YouTube(video_url)
-#yt.streams.get_highest_resolution().download(path1)
+userid = 0
+id = 0
 @app.route('/', methods=["GET", "POST"])
 def start():
+    global userid
     global url
-    if (request.method == "POST"):
+    global id
+    if request.method == "POST":
         url = request.form.get("url")
-        video_url = url
-    return render_template("load.html")
-
-
-if __name__ == '__main__':
-    app.run(host="192.168.0.213")
+        id = id + 1
+        userid = userid + 1
+        map = (str(id) + ".mp4")
+        yt = pytube.YouTube(url)
+        videoname = str(userid)
+        yt.streams.get_highest_resolution().download("downloads/" + videoname + "/", filename=map)
+        returns = ("downloads/" + videoname + "/" + map)
+        return send_file(returns, as_attachment=True)
+    return render_template("start.html")
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
+@app.errorhandler(500)
+def not_found(e):
+    return render_template("500.html")
+app.run()
